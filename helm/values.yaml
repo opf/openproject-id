@@ -1,0 +1,23 @@
+common:
+  namespace: keycloak
+
+image:
+  name: quay.io/keycloak/keycloak:26.3.3
+  pullPolicy: IfNotPresent
+
+ingress:
+  class: nginx
+  host: keycloak.k8s.local
+
+scaling:
+  replicaCount: 1
+  hpa:
+    enabled: false
+
+secrets:
+  create: true
+  name: keycloak
+  data:
+    adminPassword: "change-me-1234!"
+    databaseUser: keycloak
+    databasePassword: shouldBeMoreSecureThanThis

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: {{ .Values.common.namespace | quote }}
+  labels:
+    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/part-of: keycloak
+spec:
+  {{- if not .Values.scaling.hpa.enabled }}
+  replicas: {{ .Values.scaling.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: keycloak
+      app.kubernetes.io/part-of: keycloak
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: keycloak
+        app.kubernetes.io/part-of: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: {{ .Values.image.name }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        # TODO: use regular start:
+        #   * requires cache configuration (which might need additional service ...)
+        #   * might suggest prebuilding image
+        command: ["/opt/keycloak/bin/kc.sh", "start-dev"]
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.name }}
+              key: admin-password
+        # TODO: KC_DB_URL
+        - name: KC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.name }}
+              key: database-user
+        - name: KC_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.name }}
+              key: database-password
+        resources:
+          TODO:
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: http
+            scheme: HTTP
