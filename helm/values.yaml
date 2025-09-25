@@ -7,7 +7,7 @@ config:
   databaseUser: keycloak
 
 image:
-  name: quay.io/keycloak/keycloak:26.3.3
+  name: openproject-id-keycloak:26.3.3
   pullPolicy: IfNotPresent
 
 ingress:
