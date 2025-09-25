@@ -14,6 +14,13 @@ spec:
     matchLabels:
       app.kubernetes.io/component: keycloak
       app.kubernetes.io/part-of: keycloak
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  # maxUnavailable above and minReadySeconds below should ensure that deployments happen sufficiently slowly, so that
+  # the cache can be redistributed across nodes, even during deployments.
+  minReadySeconds: 10
   template:
     metadata:
       labels:
@@ -24,10 +31,7 @@ spec:
       - name: keycloak
         image: {{ .Values.image.name }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        # TODO: use regular start:
-        #   * requires cache configuration (which might need additional service ...)
-        #   * might suggest prebuilding image
-        command: ["/opt/keycloak/bin/kc.sh", "start-dev"]
+        command: ["/opt/keycloak/bin/kc.sh", "start"]
         env:
         - name: KUBERNETES_NAMESPACE
           valueFrom:
@@ -39,19 +43,31 @@ spec:
             secretKeyRef:
               name: {{ .Values.secrets.name }}
               key: admin-password
-        # TODO: KC_DB_URL
+        - name: KC_DB
+          value: postgres
+        - name: KC_DB_URL_HOST
+          value: {{ .Values.config.databaseHost }}
+        - name: KC_DB_URL_DATABASE
+          value: {{ .Values.config.databaseName }}
+        - name: KC_DB_USERNAME
+          value: "{{ .Values.config.databaseUser }}"
         - name: KC_DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secrets.name }}
-              key: database-user
-        - name: KC_DB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: {{ .Values.secrets.name }}
               key: database-password
+        - name: KC_HTTP_ENABLED
+          value: "true"
+        - name: KC_PROXY_HEADERS
+          value: xforwarded
+        - name: KC_HOSTNAME
+          value: "https://{{ .Values.ingress.host }}"
         resources:
-          TODO:
+          requests:
+            cpu: "{{ .Values.scaling.cpuRequest }}"
+            memory: "{{ .Values.scaling.memoryRequest }}"
+          limits:
+            memory: "{{ .Values.scaling.memoryLimit }}"
         ports:
         - name: http
           containerPort: 8080

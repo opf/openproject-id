@@ -1,6 +1,11 @@
 common:
   namespace: keycloak
 
+config:
+  databaseHost: keycloak-postgresql
+  databaseName: keycloak
+  databaseUser: keycloak
+
 image:
   name: quay.io/keycloak/keycloak:26.3.3
   pullPolicy: IfNotPresent
@@ -12,6 +17,9 @@ ingress:
 
 scaling:
   replicaCount: 1
+  cpuRequest: 0.6
+  memoryRequest: 768Mi
+  memoryLimit: 3Gi
   hpa:
     enabled: false
 
@@ -20,5 +28,17 @@ secrets:
   name: keycloak
   data:
     adminPassword: "change-me-1234!"
-    databaseUser: keycloak
     databasePassword: shouldBeMoreSecureThanThis
+
+service:
+  annotations:
+
+postgresql:
+  create: true
+  namespaceOverride: keycloak
+  auth:
+    postgresPassword: ""
+    username: keycloak
+    password: "shouldBeMoreSecureThanThis"
+    database: keycloak
+  architecture: standalone

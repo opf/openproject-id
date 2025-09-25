@@ -7,6 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/component: keycloak
     app.kubernetes.io/part-of: keycloak
+  {{- if .Values.service.annotations }}
+  annotations:
+    {{- toYaml .Values.service.annotations | nindent 4 }}
+  {{- end }}
 spec:
   type: ClusterIP
   ports:
