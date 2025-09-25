@@ -7,6 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/component: keycloak
     app.kubernetes.io/part-of: keycloak
+  {{- if .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.class | quote }}
   rules:

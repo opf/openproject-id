@@ -6,6 +6,7 @@ image:
   pullPolicy: IfNotPresent
 
 ingress:
+  annotations:
   class: nginx
   host: keycloak.k8s.local
 
