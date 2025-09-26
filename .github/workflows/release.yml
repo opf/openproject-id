@@ -1,0 +1,94 @@
+name: Release Charts
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Changeset and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.OPENRPOJECTCI_GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.10.0
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Configure Git
+        run: |
+          git config user.name openprojectci
+          git config user.email operations+openprojectci@openproject.com
+
+      - name: Prepare GPG key
+        run: |
+          gpg_dir=.cr-gpg
+          mkdir "$gpg_dir"
+          keyring="$gpg_dir/secring.gpg"
+          base64 -d <<< "$GPG_OPERATIONS_BASE64" > "$keyring"
+          passphrase_file="$gpg_dir/passphrase"
+          echo "$GPG_OPERATIONS_PASSPHRASE" > "$passphrase_file"
+          echo "CR_PASSPHRASE_FILE=$passphrase_file" >> "$GITHUB_ENV"
+          echo "CR_KEYRING=$keyring" >> "$GITHUB_ENV"
+        env:
+          GPG_OPERATIONS_BASE64: "${{ secrets.GPG_OPERATIONS_BASE64 }}"
+          GPG_OPERATIONS_PASSPHRASE: "${{ secrets.GPG_OPERATIONS_PASSPHRASE }}"
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          title: Release Tracking
+          version: npm run changeset:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.OPENRPOJECTCI_GH_TOKEN }}
+
+      - name: Publish
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          config: .github/cr.yaml
+          skip_existing: true
+        env:
+          CR_TOKEN: "${{ secrets.OPENRPOJECTCI_GH_TOKEN }}"
+
+      - name: Login to GitHub Container Registry
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: openprojectci
+          password: ${{ secrets.OPENRPOJECTCI_GH_TOKEN }}
+
+      - name: Push Charts to GHCR
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          shopt -s nullglob
+          for pkg in .cr-release-packages/*.tgz; do
+            if [ -z "${pkg:-}" ]; then
+              break
+            fi
+            helm push "${pkg}" oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}/helm-charts
+          done
