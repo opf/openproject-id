@@ -62,7 +62,6 @@ jobs:
         with:
           title: Release Tracking
           version: npm run changeset:version
-          commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
