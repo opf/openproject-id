@@ -2,7 +2,7 @@
     "name": "@openproject/openproject-id",
     "private": true,
     "author": "OpenProject GmbH",
-    "version": null,
+    "version": "0.1.0",
     "license": "",
     "scripts": {
         "changeset:version": "./node_modules/.bin/changeset version && script/version"

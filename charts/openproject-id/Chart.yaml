@@ -14,4 +14,4 @@ maintainers:
 - name: OpenProject
   url: https://github.com/opf/
 name: OpenProject ID
-version:
+version: 0.1.0
