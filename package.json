@@ -1,0 +1,13 @@
+{
+    "name": "@openproject/openproject-id",
+    "private": true,
+    "author": "OpenProject GmbH",
+    "version": "1.0",
+    "license": "",
+    "scripts": {
+        "changeset:version": "./node_modules/.bin/changeset version && script/version"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.27.1"
+    }
+}
