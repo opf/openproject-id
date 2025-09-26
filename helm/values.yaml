@@ -5,6 +5,7 @@ config:
   databaseHost: keycloak-postgresql
   databaseName: keycloak
   databaseUser: keycloak
+  defaultRealm: master
 
 image:
   name: openproject-id-keycloak:26.3.3

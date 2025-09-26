@@ -63,6 +63,10 @@ spec:
           value: xforwarded
         - name: KC_HOSTNAME
           value: "https://{{ .Values.ingress.host }}"
+        - name: KC_SPI_THEME_WELCOME_THEME
+          value: "openproject"
+        - name: DEFAULT_REALM
+          value: {{ .Values.config.defaultRealm }}
         resources:
           requests:
             cpu: "{{ .Values.scaling.cpuRequest }}"
