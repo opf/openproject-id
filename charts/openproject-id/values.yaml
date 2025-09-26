@@ -19,7 +19,7 @@ ingress:
 scaling:
   replicaCount: 1
   cpuRequest: 0.6
-  memoryRequest: 768Mi
+  memoryRequest: 769Mi
   memoryLimit: 3Gi
   hpa:
     enabled: false
