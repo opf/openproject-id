@@ -18,6 +18,12 @@ On a production system you want to:
 * disable generation of secrets, because we usually seed these externally, e.g. via Terraform
 * Customize the remaining values (e.g. adding annotations)
 
+On production add the repo like so.
+
+```bash
+helm repo add openproject-id https://opf.github.io/openproject-id/
+```
+
 An example values.yaml for your production environment might look like this:
 
 ```yaml
