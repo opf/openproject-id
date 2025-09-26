@@ -13,5 +13,5 @@ dependencies:
 maintainers:
 - name: OpenProject
   url: https://github.com/opf/
-name: OpenProject ID
+name: openproject-id
 version: 0.1.2
