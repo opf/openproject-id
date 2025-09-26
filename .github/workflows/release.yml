@@ -63,7 +63,7 @@ jobs:
           title: Release Tracking
           version: npm run changeset:version
         env:
-          GITHUB_TOKEN: ${{ secrets.OPENRPOJECTCI_GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish
         if: steps.changesets.outputs.hasChangesets == 'false'
@@ -72,7 +72,7 @@ jobs:
           config: .github/cr.yaml
           skip_existing: true
         env:
-          CR_TOKEN: "${{ secrets.OPENRPOJECTCI_GH_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Login to GitHub Container Registry
         if: steps.changesets.outputs.hasChangesets == 'false'
@@ -80,7 +80,7 @@ jobs:
         with:
           registry: ghcr.io
           username: openprojectci
-          password: ${{ secrets.OPENRPOJECTCI_GH_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Charts to GHCR
         if: steps.changesets.outputs.hasChangesets == 'false'
