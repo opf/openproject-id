@@ -6,23 +6,27 @@ The intention is to have templates that are easier to read, while giving us flex
 
 ## Configuration
 
+### Development
+
 The defaults in the helm chart should be working right away on a development cluster (e.g. minikube):
 
-```
+```bash
 helm upgrade --install keycloak .
 ```
 
-On a production system you want to:
+### Production
 
-* disable the postgres dependency (because we want to run the database in a managed service like RDS)
-* disable generation of secrets, because we usually seed these externally, e.g. via Terraform
-* Customize the remaining values (e.g. adding annotations)
-
-On production add the repo like so.
+Make sure that the corresponding Helm repository is configured:
 
 ```bash
 helm repo add openproject-id https://opf.github.io/openproject-id/
 ```
+
+Configuration-wise you want to:
+
+* disable the postgres dependency (because we want to run the database in a managed service like RDS)
+* disable generation of secrets, because we usually seed these externally, e.g. via Terraform
+* Customize the remaining values (e.g. adding annotations)
 
 An example values.yaml for your production environment might look like this:
 
