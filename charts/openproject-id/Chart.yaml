@@ -1,3 +1,4 @@
+---
 annotations:
   images: |
     - name: keycloak
@@ -13,4 +14,4 @@ maintainers:
 - name: OpenProject
   url: https://github.com/opf/
 name: OpenProject ID
-version: 0.1.0
+version:
