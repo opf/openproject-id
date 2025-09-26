@@ -1,1 +1,3 @@
-helm/charts
+charts/openproject-id/charts
+node_modules/
+.cr-gpg/
