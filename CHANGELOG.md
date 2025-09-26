@@ -1,5 +1,11 @@
 # @openproject/openproject-id
 
+## 0.1.2
+
+### Patch Changes
+
+- 6488abf: fix memory request
+
 ## 0.1.1
 
 ### Patch Changes
