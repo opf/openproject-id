@@ -1,1 +1,1 @@
-docker build -t openproject-id-keycloak:$1 -f Containerfile --build-arg KEYCLOAK_VERSION=$1 .
+docker build -t openproject/openproject-id:$1-dev -f Containerfile --build-arg KEYCLOAK_VERSION=$1 .

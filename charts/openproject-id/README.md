@@ -37,7 +37,7 @@ config:
   databaseUser: keycloak
 
 image:
-  name: quay.io/keycloak/keycloak:26.3.3
+  name: openproject/openproject-id:26.3.3
 
 ingress:
   annotations:
