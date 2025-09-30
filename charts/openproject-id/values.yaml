@@ -2,7 +2,7 @@ common:
   namespace: keycloak
 
 config:
-  databaseHost: keycloak-postgresql
+  databaseHost: openproject-id-postgresql
   databaseName: keycloak
   databaseUser: keycloak
   defaultRealm: master

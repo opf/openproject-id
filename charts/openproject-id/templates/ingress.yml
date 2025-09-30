@@ -6,7 +6,8 @@ metadata:
   namespace: {{ .Values.common.namespace | quote }}
   labels:
     app.kubernetes.io/component: keycloak
-    app.kubernetes.io/part-of: keycloak
+    app.kubernetes.io/part-of: openproject-id
+    app.kubernetes.io/managed-by: helm
   {{- if .Values.ingress.annotations }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
