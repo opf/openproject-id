@@ -4,10 +4,11 @@ metadata:
   name: keycloak
   labels:
     app.kubernetes.io/component: keycloak
-    app.kubernetes.io/part-of: keycloak
+    app.kubernetes.io/part-of: openproject-id
+    app.kubernetes.io/managed-by: helm
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: keycloak
-      app.kubernetes.io/part-of: keycloak
+      app.kubernetes.io/part-of: openproject-id

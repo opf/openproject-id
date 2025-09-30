@@ -5,7 +5,8 @@ metadata:
   namespace: {{ .Values.common.namespace | quote }}
   labels:
     app.kubernetes.io/component: keycloak
-    app.kubernetes.io/part-of: keycloak
+    app.kubernetes.io/part-of: openproject-id
+    app.kubernetes.io/managed-by: helm
 spec:
   {{- if not .Values.scaling.hpa.enabled }}
   replicas: {{ .Values.scaling.replicaCount }}
@@ -13,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: keycloak
-      app.kubernetes.io/part-of: keycloak
+      app.kubernetes.io/part-of: openproject-id
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -26,7 +27,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/component: keycloak
-        app.kubernetes.io/part-of: keycloak
+        app.kubernetes.io/part-of: openproject-id
+        app.kubernetes.io/managed-by: helm
     spec:
       containers:
       - name: keycloak
