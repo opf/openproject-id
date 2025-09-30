@@ -1,5 +1,11 @@
 # @openproject/openproject-id
 
+## 0.2.0
+
+### Minor Changes
+
+- 340dc16: Update labels of created resources.
+
 ## 0.1.2
 
 ### Patch Changes
