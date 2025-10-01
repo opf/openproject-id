@@ -45,7 +45,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secrets.name }}
-              key: admin-password
+              key: adminPassword
         - name: KC_DB
           value: postgres
         - name: KC_DB_URL_HOST
@@ -58,7 +58,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secrets.name }}
-              key: database-password
+              key: databasePassword
         - name: KC_HTTP_ENABLED
           value: "true"
         - name: KC_PROXY_HEADERS
