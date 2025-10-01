@@ -1,5 +1,11 @@
 # @openproject/openproject-id
 
+## 0.3.0
+
+### Minor Changes
+
+- c0eaa26: Camelize secrets
+
 ## 0.2.0
 
 ### Minor Changes
