@@ -15,4 +15,4 @@ maintainers:
   url: https://github.com/opf/
 name: openproject-id
 description: Configures a Keycloak like we use it for OpenProject ID.
-version: 0.2.0
+version: 0.3.0
