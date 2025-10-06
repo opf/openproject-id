@@ -12,3 +12,10 @@ body {
   font-weight: bold;
   color: light-dark(#1A67A3, #abdaff);
 }
+
+/*
+Hide placeholder icon added for login through OpenProject ID on Edge, that doesn't seem to be disable-able through the UI.
+*/
+#social-openproject-id svg {
+	display: none;
+}
