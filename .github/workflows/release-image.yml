@@ -13,7 +13,7 @@ permissions:
 
 env:
   REGISTRY_IMAGE: openproject/openproject-id
-  KEYCLOAK_VERSION: 26.3.3
+  KEYCLOAK_VERSION: 26.3.5
 
 jobs:
   build:
