@@ -1,5 +1,12 @@
 # @openproject/openproject-id
 
+## 1.0.0
+
+### Major Changes
+
+- 04cbf13: Bump to chart version 1.0, no breaking changes, but chart is officially
+  considered stable now.
+
 ## 0.3.0
 
 ### Minor Changes
