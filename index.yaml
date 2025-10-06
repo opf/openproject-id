@@ -7,6 +7,27 @@ entries:
           image: quay.io/keycloak/keycloak:26.3.3
     apiVersion: v2
     appVersion: 26.3.3
+    created: "2025-10-06T08:41:26.149820542Z"
+    dependencies:
+    - condition: postgresql.create
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.x.x
+    description: Configures a Keycloak like we use it for OpenProject ID.
+    digest: e617629cb4dd8fa55bddda3df8d6afebbd868cc3414f934b1edc69dcd0e168b5
+    maintainers:
+    - name: OpenProject
+      url: https://github.com/opf/
+    name: openproject-id
+    urls:
+    - https://github.com/opf/openproject-id/releases/download/openproject-id-1.0.0/openproject-id-1.0.0.tgz
+    version: 1.0.0
+  - annotations:
+      images: |
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:26.3.3
+    apiVersion: v2
+    appVersion: 26.3.3
     created: "2025-10-01T12:30:55.310913731Z"
     dependencies:
     - condition: postgresql.create
@@ -63,4 +84,4 @@ entries:
     urls:
     - https://github.com/opf/openproject-id/releases/download/openproject-id-0.1.2/openproject-id-0.1.2.tgz
     version: 0.1.2
-generated: "2025-10-01T12:30:55.310928128Z"
+generated: "2025-10-06T08:41:26.149840079Z"
