@@ -4,11 +4,11 @@
 }
 
 body {
-  background-color: rgb(235, 243, 247);
+  background-color: light-dark(#ebf3f7, #323232);
 }
 
 .pf-v5-c-brand {
   font-size: 2rem;
   font-weight: bold;
-  color: #1A67A3;
+  color: light-dark(#1A67A3, #abdaff);
 }
