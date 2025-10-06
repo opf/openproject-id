@@ -18,7 +18,11 @@
 }
 
 :root body .pf-v5-c-masthead .pf-v5-c-toolbar {
-  --pf-v5-c-masthead--c-toolbar--BackgroundColor: #1A67A3;
+  --pf-v5-c-toolbar--BackgroundColor: #1A67A3;
+}
+
+:where(.pf-v5-theme-dark) .pf-v5-c-masthead .pf-v5-c-toolbar {
+  --pf-v5-c-toolbar--BackgroundColor: #1A67A3;
 }
 
 body {
