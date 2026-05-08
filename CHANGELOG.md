@@ -1,5 +1,11 @@
 # @openproject/openproject-id
 
+## 1.1.0
+
+### Minor Changes
+
+- db1fab2: Upgrade to Keycloak 26.6
+
 ## 1.0.0
 
 ### Major Changes
