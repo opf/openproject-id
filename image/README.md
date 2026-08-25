@@ -25,4 +25,6 @@ The built image will be tagged `openproject-id-keycloak:26.3.3`. This tag can be
 
 ## Building a new image to be used in production
 
-TODO: We have yet to figure out how to do that
+1. Open `.github/workflows/release-image.yml`
+2. Adapt `KEYCLOAK_VERSION` to whichever version of Keycloak you want to use as a basis
+3. Push to `main` and CI will take care of building a new image
